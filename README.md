@@ -1,6 +1,6 @@
 # Playwright-Typescript
 
-## Introduction
+## 👋 Introduction
 Playwright is an open-source Node.js library developed by Microsoft for automated end-to-end testing of web applications. It supports modern browsers like Chromium, Firefox, and WebKit and allows you to write reliable, fast, and cross-browser tests. When combined with TypeScript, it provides a powerful, type-safe development experience, making it easier to build and maintain complex test suites.
 
 In this project, we are using **Playwright with TypeScript** to take advantage of strong typing, better developer tooling, and improved code maintainability.
@@ -11,7 +11,7 @@ Useful Resources:
 2. [Playwright Documentation](https://playwright.dev/docs/intro/)  
 ---
 
-## Key Features of Playwright with TypeScript
+## ✨ Key Features of Playwright with TypeScript
 
 - Cross-browser testing (Chromium, Firefox, WebKit)  
 - TypeScript support with type safety  
@@ -22,7 +22,7 @@ Useful Resources:
 - Mobile device emulation  
 - CI/CD integration support  
 
-## Playwright Supported Languages
+## 🎭 Playwright Supported Languages
 
 Playwright offers robust support across multiple programming languages, each with its own recommended testing framework. Below is a summary:
 
@@ -33,7 +33,7 @@ Playwright offers robust support across multiple programming languages, each wit
 | **Java**             | JUnit or TestNG                      | [Documentation](https://playwright.dev/java/docs/intro)                            |
 | **.NET (C#)**        | MSTest, NUnit, or xUnit              | [Documentation](https://playwright.dev/dotnet/docs/intro)                          |
 
-## Supported Selectors in Playwright (TypeScript)
+## 🎛️ Supported Selectors in Playwright (TypeScript)
 
 Playwright provides a wide range of selectors to locate elements within the DOM effectively. These selectors are powerful, flexible, and designed for ease of use.
 
@@ -56,6 +56,31 @@ Playwright provides a wide range of selectors to locate elements within the DOM 
 ```ts
 await page.locator('form#login >> text="Submit"');
 ```
+## 📘 Playwright-Typescript Naming Conventions Cheat Sheet
+
+This cheat sheet provides a quick reference to standard naming conventions in project to help maintain clean and consistent code.
+
+### 🔠 Naming Conventions Table
+
+| **Element**        | **Convention**      | **Example**                  |
+|--------------------|---------------------|------------------------------|
+| File Name          | `kebab-case`        | `user-profile.ts`            |
+| Test File          | `kebab-case + .test`  | `login.test.ts`           |
+| Folder Name        | `kebab-case`        | `demo-test`                  |
+| Component File     | `PascalCase`        | `UserProfile.ts`             |
+| Function Name      | `camelCase`         | `getUserInfo()`              |
+| Variable Name      | `camelCase`         | `userEmail`                  |
+| Class Name         | `PascalCase`        | `AuthService`                |
+| Constant Name      | `UPPER_CASE`        | `MAX_RETRIES`                |
+| Boolean Name       | `camelCase`         | `isLoggedIn`, `hasAccess`    |
+
+### ✅ Summary
+
+- Use **kebab-case** for regular `.ts` file names.
+- Use **kebab-case + .test** for playwright E2E test files `(*.spec.ts, *.test.ts)`.
+- Use **PascalCase** for files that export components or classes.
+- Use **camelCase** for variables, functions, and booleans.
+- Use **UPPER_CASE** for constants that should not change.
 
 ## Pre-requirements:
  1. `scoop`
@@ -65,9 +90,9 @@ await page.locator('form#login >> text="Submit"');
  5. To install dependencies
  It will only available in this package not global & all file will store in  `node modules`
 
-# Installation Guide
+# 📥 Installation Guide
 
-### Step 1: Install Scoop
+### Step 1: 🥄 Install Scoop 
 
 To install Scoop, open PowerShell in Windows and run:
 
@@ -153,7 +178,7 @@ npm install -D @playwright/test@latest
 ```sh
 npx playwright --version
 ```
-## How to run single or multiple test from VS Code with just click.
+## ▶️ How to run single or multiple test from VS Code with just click.
 1. Install the **Playwright Test for VSCode** plugin from Microsoft.
 2. Open the `playwright.config.ts` file and update the `testDir` path:
 ```typescript
@@ -164,7 +189,7 @@ npx playwright --version
 4. Look for the glass jar icon with a half-filled sign `(Test Explorer)` below the Extensions section in the Activity Bar.
 5. You can also run tests from there as well.
 
-## How to run all test and single test `(.test.ts)` file from cmd
+## ▶️ How to run all test and single test `(.test.ts)` file from cmd
 
 ### run all test
 ```sh
@@ -198,7 +223,7 @@ npx playwright test -g "open chrome"
 npx playwright test --last-failed
 ```
 
-### Debug tests in UI mode
+### 🛠️ Debug tests 🔍 in UI mode
 ```sh
 npx playwright test --ui
 ```
@@ -210,12 +235,12 @@ npx playwright test example.spec.ts --debug
 npx playwright test example.spec.ts:10 --debug
 ```
 
-## Test reports or simply open html report in browser
+## 📊 Test reports or simply open html report in browser
 ```sh
 npx playwright show-report
 ```
 
-## How to Add a VS Code Project to GitHub
+## ➕ How to Add a VS Code Project to GitHub
  Follow these simple steps to publish your local project to GitHub using Visual Studio Code:
 1. **Open your project folder** in Visual Studio Code.
 2. Click on the **Source Control** icon in the sidebar _or press_ `Ctrl + Shift + G`.
@@ -230,7 +255,7 @@ npx playwright show-report
  npx playwright codegen wikipedia.org 
  ```
 
-## How to Upload File
+## ⬆️ How to Upload File
 
 1. **Using an `<input>` HTML Tag**
    - If the HTML tag `<input>` is present with the attribute `type="file"`, we can use the method:
@@ -248,7 +273,7 @@ npx playwright show-report
        along with a **listener** to handle the file chooser event.
      - This approach allows us to programmatically handle native file picker popups.
 
- ## How to read JSON data file.
+ ## { } How to read JSON data file.
  1. Create testData.json file
  2. Create playwright.config.ts file & paste this
  ```js
@@ -266,7 +291,7 @@ npx playwright show-report
   let data = <any>testData
   ```
 
-## How to set up CI GitHub Actions
+## 🔁 🚀 How to set up CI GitHub Actions
  [GitHub Actions](https://playwright.dev/docs/ci-intro)
 
 

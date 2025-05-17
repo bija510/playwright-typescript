@@ -1,4 +1,4 @@
-# Playwright-typescript
+# Playwright-Typescript
 
 ## Introduction
 Playwright is an open-source Node.js library developed by Microsoft for automated end-to-end testing of web applications. It supports modern browsers like Chromium, Firefox, and WebKit and allows you to write reliable, fast, and cross-browser tests. When combined with TypeScript, it provides a powerful, type-safe development experience, making it easier to build and maintain complex test suites.

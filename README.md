@@ -249,9 +249,9 @@ npx playwright show-report
      - This approach allows us to programmatically handle native file picker popups.
 
  ## How to read JSON data file.
- 1. create testData.json file
- 2. create pwright.config.ts file & paste this
- ```json
+ 1. Create testData.json file
+ 2. Create playwright.config.ts file & paste this
+ ```js
   declare module "*.json" {
     const value: any;
     export default value

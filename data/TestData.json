@@ -1,0 +1,14 @@
+{
+    "url": "https://opensource-demo.orangehrmlive.com/",
+    "userName": "admin",
+    "password": "admin123",
+
+    "firstName": "David",
+    "lastName": "Johnson",
+    "age": 25,
+    "address": "123 bogus street",
+    "city": "Hollywood",
+    "zipcode": 19104,
+    "state": "FL"
+
+}

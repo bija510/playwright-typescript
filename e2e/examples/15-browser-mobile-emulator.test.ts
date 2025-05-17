@@ -13,7 +13,7 @@ test.describe('Run test with different annoatation Globals', () => {
             ...iPhone
         });
         const page = await context.newPage();
-        await page.goto("https://learn.letskodeit.com/p/practice")
+        await page.goto("https://www.letskodeit.com/practice")
 
         await new Promise(r => setTimeout(r, 3000));
         await page.close()

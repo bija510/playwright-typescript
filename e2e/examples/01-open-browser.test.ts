@@ -1,60 +1,81 @@
-import { test, type Page, chromium, firefox, webkit } from "@playwright/test";
+import { test, type Page, type Browser, chromium, firefox, webkit } from "@playwright/test";
 
-// https://playwright.dev/docs/browsers#google-chrome--microsoft-edge
 
 test.describe('lunch browser', () => {
 
-    test('open chromium for chrome and msedge', async () => {
+    const testUrl = "https://qaclickacademy.github.io/protocommerce/"
+
+    test('lunch chromium (default) for chrome and msedge', async () => {
         const browser = await chromium.launch({
             headless: false
         })
         const context = await browser.newContext();
         const page = await context.newPage();
-        await page.goto("https://qaclickacademy.github.io/protocommerce/")
+        await page.goto(testUrl)
         await browser.close();
     })
 
-    test('open chrome', async () => {
+    test('Chrome (via Chromium channel)', async () => {
         const browser = await chromium.launch({
             headless: false,
             channel: 'chrome'
         })
         const context = await browser.newContext();
         const page = await context.newPage();
-        await page.goto("https://qaclickacademy.github.io/protocommerce/")
+        await page.goto(testUrl)
         await browser.close();
     })
 
-    test('open msedge', async () => {
-        const browser = await chromium.launch({
-            headless: false,
-            channel: 'msedge'
-        })
+    test('Microsoft Edge (via Chromium channel)', async () => {
+        console.log('Available Chromium channels:');
+        console.log(chromium.executablePath());
+
+        const browser = await launchEdgeOrFallback()
+           
         const context = await browser.newContext();
         const page = await context.newPage();
-        await page.goto("https://qaclickacademy.github.io/protocommerce/")
+        await page.goto(testUrl)
         await browser.close();
     })
 
-    test('open firefox', async () => {
+    test('lunch firefox', async () => {
         const browser = await firefox.launch({
-            headless: false
+            channel: 'firefox' ,
+            headless: false          
         })
         const context = await browser.newContext();
         const page = await context.newPage();
-        await page.goto("https://qaclickacademy.github.io/protocommerce/")
+        await page.goto(testUrl)
         await browser.close();
     })
 
-    test('open webkit for safari', async () => {
+    test('WebKit (Safari)', async () => {
         const browser = await webkit.launch({
+            channel: 'webkit' ,
             headless: false
         })
         const context = await browser.newContext();
         const page = await context.newPage();
-        await page.goto("https://qaclickacademy.github.io/protocommerce/")
+        await page.goto(testUrl)
         await browser.close();
     })
 
 
 })
+
+
+
+
+export async function launchEdgeOrFallback(): Promise<Browser> {
+  try {
+    console.log('Trying to launch Microsoft Edge...');
+    return await chromium.launch({ channel: 'msedge', headless: false });
+  } catch (err) {
+    console.warn('Edge launch failed. Falling back to Chrome or default Chromium.');
+    try {
+      return await chromium.launch({ channel: 'chrome', headless: false });
+    } catch {
+      return await chromium.launch({ headless: false });
+    }
+  }
+}

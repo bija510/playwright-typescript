@@ -12,7 +12,7 @@ test.describe("Handeling various Alert", () => {
         })
         context = await browser.newContext();
         page = await context.newPage();
-        await page.goto("https://letcode.in/alert")
+        await page.goto("https://www.letskodeit.com/practice")
     });
 
     test('accept alert and print alert msg', async () => {

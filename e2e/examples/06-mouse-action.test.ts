@@ -21,7 +21,7 @@ test.describe('Mouse Actions', () => {
         })
         const context = await browser.newContext();
         const page = await context.newPage();
-        await page.goto("https://learn.letskodeit.com/p/practice")
+        await page.goto("https://www.letskodeit.com/practice")
 
         //Just a concept css don't work
         // Double click

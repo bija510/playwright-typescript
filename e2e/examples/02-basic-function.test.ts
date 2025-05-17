@@ -1,24 +1,21 @@
-import { test, expect, type Page, chromium, firefox } from "@playwright/test";
+import { test, expect, type Page} from '@playwright/test';
 
 test.describe('basic actions', () => {
 
-    test('click fill and innerText', async () => {
+    test('click fill and innerText', async ({ page }) => {
 
-        const browser = await chromium.launch({
-            headless: false
-        })
-        const context = await browser.newContext();
-        const page = await context.newPage();
-        await page.goto("https://learn.letskodeit.com/p/practice")
+        await page.goto('https://www.letskodeit.com/practice')
 
         //1a. fill (clear & fill)
-        await page.fill("//input[@id='name']", 'for test')
+        await page.fill("//input[@name='enter-name']", 'for test')
 
         //1b. type(by default it apppend in begnning & to append at end follow this trick)
         const showHideTxt = await page.$("//input[@id='displayed-text']")
         await showHideTxt?.fill("aFor")
         await showHideTxt?.focus()
-        await showHideTxt?.type(' apple')
+        await page.waitForTimeout(2000);
+        await page.keyboard.type(' apple')
+        
         await new Promise(r => setTimeout(r, 2000));
 
         //how to clear
@@ -48,9 +45,10 @@ test.describe('basic actions', () => {
         await cars_dropdown?.selectOption({ label: 'Honda' })
 
         //9. Javascript hard wait
+       //close correct order ( page >> context >> browser)
         await new Promise(r => setTimeout(r, 5000));
-        await browser.close();
-        await context.close();
+        await page.close();
+    
     })
 
 

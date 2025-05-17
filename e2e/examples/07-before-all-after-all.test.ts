@@ -10,7 +10,7 @@ test.beforeAll(async () => {
     })
     context = await browser.newContext();
     page = await context.newPage();
-    await page.goto("https://learn.letskodeit.com/p/practice")
+    await page.goto("https://www.letskodeit.com/practice")
 });
 
 test('click fill and innerText', async () => {

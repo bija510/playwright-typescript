@@ -13,7 +13,7 @@ test.describe("Frames handling concept", () => {
         });
         context = await browser.newContext()
         page = await context.newPage();
-        await page.goto("https://letcode.in/frame")
+        await page.goto("https://www.letskodeit.com/practice")
     })
 
     test("Interact with frames", async () => {

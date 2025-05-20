@@ -1,4 +1,4 @@
-# Playwright-Typescript
+# 🎭 Playwright-Typescript
 
 ## 👋 Introduction
 Playwright is an open-source Node.js library developed by Microsoft for automated end-to-end testing of web applications. It supports modern browsers like Chromium, Firefox, and WebKit and allows you to write reliable, fast, and cross-browser tests. When combined with TypeScript, it provides a powerful, type-safe development experience, making it easier to build and maintain complex test suites.
@@ -22,7 +22,7 @@ Useful Resources:
 - Mobile device emulation  
 - CI/CD integration support  
 
-## 🎭 Playwright Supported Languages
+## 🔤 Playwright Supported Languages
 
 Playwright offers robust support across multiple programming languages, each with its own recommended testing framework. Below is a summary:
 
@@ -179,7 +179,7 @@ npm install -D @playwright/test@latest
 npx playwright --version
 ```
 ## ▶️ How to run single or multiple test from VS Code with just click.
-1. Install the **Playwright Test for VSCode** plugin from Microsoft.
+1. Install the `Playwright Test for VSCode` plugin from Microsoft.
 2. Open the `playwright.config.ts` file and update the `testDir` path:
 ```typescript
    export default defineConfig({
@@ -191,7 +191,7 @@ npx playwright --version
 
 ## ▶️ How to run all test and single test `(.test.ts)` file from cmd
 
-### run all test
+How to `run all` test
 ```sh
 npx playwright test
 npx playwright test --ui
@@ -199,36 +199,37 @@ npx playwright test --headed
 npx playwright test --project webkit
 npx playwright test --project webkit --project firefox
 ```
-### Run specific tests
+How to `run specific` tests
 ```sh
 npx playwright test login.test.ts
 
 ```
-### How to run multiple folder (dir)
+How to `run multiple` folder (dir)
 ```sh
 npx playwright test e2e/examples/ e2e/tests/
 ```
 
-### How to To run (.test.ts) files that have **open** or **basic**
+How to To run (.test.ts) files that have **open** or **basic**
 ```sh
 npx playwright test open basic
 ```
 
-### To run a test with a specific title `open chrome`
+How to run a test with a specific title `open chrome`
 ```sh
 npx playwright test -g "open chrome"
 ```
-### Run last failed tests
+How to `run last failed` tests
 ```sh
 npx playwright test --last-failed
 ```
 
-### 🛠️ Debug tests 🔍 in UI mode
+### 🛠️ Debug
+How to debug from UI
 ```sh
 npx playwright test --ui
 ```
 
-### Debug `tests`, `test`, from `line num 10` with the Playwright Inspector
+How to debug `tests`, `test`, from `line num 10` with the Playwright Inspector
 ```sh
 npx playwright test --debug
 npx playwright test example.spec.ts --debug

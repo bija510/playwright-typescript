@@ -1,4 +1,4 @@
-import { Page, BrowserContext } from 'playwright';
+import { Page, BrowserContext } from '@playwright/test';
 
 export default class OrangeHRM {
     page: Page;

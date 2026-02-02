@@ -1,45 +1,18 @@
 
-import { test, expect, Browser, BrowserContext, Page, chromium } from "@playwright/test";
+import { test } from "@playwright/test";
 
-test.describe("Frames handling concept", () => {
+test.describe('Frames handling concept', () => {
 
-    let browser: Browser;
-    let context: BrowserContext;
-    let page: Page;
+  test('Interact with frames', async ({ page }) => {
+    await page.goto('https://demo.automationtesting.in/Frames.html');
+    const frame = await page.frameLocator('#singleframe');
 
-    test.beforeAll(async () => {
-        browser = await chromium.launch({
-            headless: false
-        });
-        context = await browser.newContext()
-        page = await context.newPage();
-        await page.goto("https://www.letskodeit.com/practice")
-    })
+     // Wait for input inside iframe to be visible
+     await frame.locator('input[type="text"]').highlight();
 
-    test("Interact with frames", async () => {
-        const frame = page.frame({ name: "firstFr" });
-        // frame?.fill("")
-        if (frame != null) {
-            await frame.fill("input[name='fname']", "Koushik");
-            await frame.fill("input[name='lname']", "Chatterjee");
+    const input = frame.locator('input[type="text"]');
+    await input.waitFor({ state: 'visible' });
 
-            // inner frame
-            const frames = frame.childFrames();
-            console.log('No. of inner frames: ' + frames.length);
-            if (frames != null)
-                await frames[0].fill("input[name='email']", "koushik@mail.com")
-            else {
-                console.log("Wrong frame");
-            }
-            const parent = frames[0].parentFrame()
-            // await frame.fill("input[name='lname']", "Letcode");
-            await parent?.fill("input[name='lname']", "Youtube");
-        } else throw new Error("No such frame")
-    })
-
-    test.afterAll(async () => {
-        await page.close()
-        await context.close()
-        await browser.close()
-    })
-})
+    await input.fill('Hello, Playwright!');
+  });
+});

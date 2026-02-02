@@ -1,61 +1,24 @@
-import { test, expect,Browser, BrowserContext, Page, chromium } from "@playwright/test";
+import { test, expect } from "@playwright/test";
 
-test.describe("Window handling", () => {
+test("Window handling demo", async ({ page }) => {
+    // Navigate to the practice page
+    await page.goto("https://www.letskodeit.com/practice");
 
-    let browser: Browser;
-    let context: BrowserContext;
-    let page: Page;
+    // Verify we're on the right page
+    expect(await page.title()).toBe("Practice Page");
 
-    test.beforeAll(async () => {
-        browser = await chromium.launch({
-            headless: false
-        });
-        context = await browser.newContext()
-        page = await context.newPage();
-        await page.goto("https://letcode.in/windows")
-    })
+    // Click the button that opens a new window (Open Window button)
+    const [newWindow] = await Promise.all([
+        page.waitForEvent("popup"),
+        page.click('text=Open Window')
+    ]);
 
-    test("Home Page", async () => {
-        console.log(await page.title());
-        expect(await page.title()).toBe("Window handling - LetCode");
-    })
+    // Wait for the new window to load
+    await newWindow.waitForLoadState();
 
-    test("Single page handling", async () => {
-        const [newWindow] = await Promise.all([
-            context.waitForEvent("page"),
-            await page.click("#home")
-        ])
-        await newWindow.waitForLoadState();
-        expect(newWindow.url()).toContain("test");
-        await newWindow.click('"Log in"');
-        await newWindow.waitForNavigation();
-        expect(newWindow.url()).toContain("signin");
-        // await newWindow.close();
-        await page.bringToFront();
-        await page.click('"LetXPath"');
-    })
-    test("Multipage handling", async () => {
-        const [multipage] = await Promise.all([
-            context.waitForEvent("page"),
-            await page.click("#multi")
-        ])
-        await multipage.waitForLoadState();
-        const allwindows = page.context().pages();
-        console.log("no.of windows: " + allwindows.length);
-        allwindows.forEach(page => {
-            console.log(page.url());
-        });
-        await allwindows[1].bringToFront();
-        allwindows[1].on("dialog", (dialog) => {
-            console.log('Message: ' + dialog.message());
-            dialog.accept();
-        })
-        await allwindows[1].click("id=accept")
+    // Check the URL of the new window
+    expect(newWindow.url()).toContain("courses");
 
-    })
-    test.afterAll(async () => {
-        await page.close()
-        await context.close()
-        await browser.close()
-    })
-})
+    // Bring focus back to original page
+    await page.bringToFront();
+});

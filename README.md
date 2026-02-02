@@ -86,8 +86,9 @@ This cheat sheet provides a quick reference to standard naming conventions in pr
  1. `scoop`
  2. `Node JS`
  3. A code editor (e.g., `Visual Studio Code`)
- 4. `devDependencies` inside `package.json` file
- 5. To install dependencies
+ 4. VsCode plugins like `Playwright Test for VSCode`
+ 5. `devDependencies` inside `package.json` file
+ 6. To install dependencies
  It will only available in this package not global & all file will store in  `node modules`
 
 # 📥 Installation Guide
@@ -130,7 +131,7 @@ To update Node.js:
 ```sh
 scoop update nodejs
 ```
-### Step 3: Installing Playwright
+### Step 3: Installing or Updating Playwright
 1. Run the command below to `install` & select the following to get started:
 2. Choose between `TypeScript` or JavaScript (default is TypeScript)
 3. Name of your Tests folder (default is tests or `e2e` if you already have a tests folder in your project)
@@ -150,18 +151,36 @@ It will install & create following files basically a `project` with example test
 5. tests-examples/
   demo-todo-app.spec.ts
 
-### Other useful devDependencies
+> Updating & check Playwright
+- It installs or upgrades the Playwright test runner as a dev dependency in an existing project without generating any configuration or project structure.
+```sh
+npm install -D @playwright/test@latest
+npx playwright --version
+```
+
+#### Step 4: Playwright Test Agents
+```sh
+npx playwright init-agents --loop=vscode
+```
+It will add these `3 agents` .github/agents `🎭 planner, 🎭 generator and 🎭 healer`.
+### Other dependencies & devDependencies
 After adding the `devDependencies` in your `package.json`, run this command in Windows PowerShell or Command Prompt: `Example`
 ```json
-  "devDependencies": {       
-       "dotenv": "^16.4.5"
-    }
+  "devDependencies": {
+    "@commitlint/config-conventional": "^20.3.1",
+    "@playwright/test": "^1.58.0",
+    "@types/node": "^22.15.18",
+    "commitlint": "^20.3.1",
+    "husky": "^9.1.7"
+  },
+  "dependencies": {
+    "dotenv": "^17.2.3"
+  }
 ```
 
 ```sh
 npm install
 ```
-or npm install dotenv
 
 `@playwright/test` 
 The dependency "@playwright/test": "^1.52.0" provides Playwright Test, which is Playwright's built-in test runner and testing framework. It simplifies writing, running, and organizing end-to-end (E2E) tests for web applications.
@@ -169,15 +188,69 @@ The dependency "@playwright/test": "^1.52.0" provides Playwright Test, which is 
 `@types/node` 
 The @types/node package provides TypeScript type definitions for Node.js built-in modules like fs, path, and globals like process and __dirname. It's used in Playwright projects with TypeScript to enable type checking and IntelliSense for Node.js APIs.
 
-### Updating Playwright
+### 🧩 Commit Message Standards & Git Hooks
+
+This project uses Commitlint and Husky to enforce consistent commit message conventions and improve code quality before changes are committed to the repository.
 ```sh
-npm install -D @playwright/test@latest
+npm install --save-dev commitlint @commitlint/config-conventional husky
+```
+> Why this is needed
+- `Commitlint` ensures all commit messages follow the Conventional Commits specification
+- `@commitlint/config-conventional` provides a standard, widely adopted rule set
+- `Husky` runs commit checks automatically using Git hooks
+
+Together, these tools prevent invalid commits, keep Git history clean, and support automated versioning and CI/CD workflows.
+
+## 🌍 Playwright Environment Configuration & Execution Guide
+
+This framework supports running Playwright tests across multiple
+environments (QA, UAT, DEV) using dotenv-based environment switching.
+
+------------------------------------------------------------------------
+
+## 📁 Environment Files
+
+    .env.qa
+    .env.uat
+    .env.dev
+
+### Example `.env.uat`
+
+    BASE_URL=https://uat.yourapp.com
+    APP_USERNAME=admin
+    APP_PASSWORD=admin123
+
+> ⚠️ We use `APP_USERNAME` instead of `USERNAME` to avoid conflicts with
+> Windows system environment variables.
+
+------------------------------------------------------------------------
+
+## ⚙️ Dotenv Setup
+```sh
+npm install dotenv
 ```
 
-### Checking Playwright version
-```sh
-npx playwright --version
+``` ts
+dotenv.config({
+  path: `.env.${process.env.ENVIRONMENT || 'qa'}`
+});
 ```
+
+------------------------------------------------------------------------
+
+## ▶️ Running Tests using various environment
+
+### Windows PowerShell
+
+``` powershell
+$env:ENVIRONMENT="qa"; npx playwright test --grep "@smoke"
+$env:ENVIRONMENT="uat"; npx playwright test --grep "@smoke"
+
+$env:ENVIRONMENT="qa"; npx playwright test --grep "@regression"
+$env:ENVIRONMENT="uat"; npx playwright test --grep "@regression"
+```
+
+
 ## ▶️ How to run single or multiple test from VS Code with just click.
 1. Install the `Playwright Test for VSCode` plugin from Microsoft.
 2. Open the `playwright.config.ts` file and update the `testDir` path:
@@ -188,6 +261,32 @@ npx playwright --version
 3. Now, each test inside the `test.describe` block will display a triangle ▶️ icon to run the test.
 4. Look for the glass jar icon with a half-filled sign `(Test Explorer)` below the Extensions section in the Activity Bar.
 5. You can also run tests from there as well.
+
+## 🏷️ Playwright Test Tags (Short)
+```sh
+import { test, expect } from '@playwright/test';
+
+// Single tag
+test('has title @smoke', async ({ page }) => 
+
+// Multiple tags
+test('get started link @smoke @regression', async ({ page }) => 
+
+// test.describe with tag
+test.describe('@critical', () => 
+
+// Nested describe (1-liner)
+test.describe('@e2e @ui', () => { test('end-to-end test 1', async ({ page }) => { 
+
+// Conditional test
+test.describe(() => { test('conditional test @slow', async ({ page }) => 
+```
+
+```sh
+npx playwright test --grep "@smoke"
+npx playwright test --grep "@smoke|@regression"
+npx playwright test --grep-invert "@slow"
+```
 
 ## ▶️ How to run all test and single test `(.test.ts)` file from cmd
 
